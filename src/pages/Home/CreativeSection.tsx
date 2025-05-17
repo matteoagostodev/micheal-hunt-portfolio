@@ -50,7 +50,7 @@ const CreativeSection = () => {
                 
                 <div className="space-y-6">
                   <div className="flex space-x-4">
-                    <div className="w-12 h-12 rounded-full bg-facebook text-white flex items-center justify-center flex-shrink-0">A</div>
+                    <div className="w-10 h-10 rounded-md border-2 border-facebook text-facebook flex items-center justify-center flex-shrink-0 font-medium">A</div>
                     <div>
                       <h4 className="font-semibold mb-1">Attention</h4>
                       <p className="text-gray-600 text-sm">
@@ -60,7 +60,7 @@ const CreativeSection = () => {
                   </div>
                   
                   <div className="flex space-x-4">
-                    <div className="w-12 h-12 rounded-full bg-instagram-purple text-white flex items-center justify-center flex-shrink-0">I</div>
+                    <div className="w-10 h-10 rounded-md border-2 border-instagram-purple text-instagram-purple flex items-center justify-center flex-shrink-0 font-medium">I</div>
                     <div>
                       <h4 className="font-semibold mb-1">Interest</h4>
                       <p className="text-gray-600 text-sm">
@@ -70,7 +70,7 @@ const CreativeSection = () => {
                   </div>
                   
                   <div className="flex space-x-4">
-                    <div className="w-12 h-12 rounded-full bg-instagram-pink text-white flex items-center justify-center flex-shrink-0">D</div>
+                    <div className="w-10 h-10 rounded-md border-2 border-instagram-pink text-instagram-pink flex items-center justify-center flex-shrink-0 font-medium">D</div>
                     <div>
                       <h4 className="font-semibold mb-1">Desire</h4>
                       <p className="text-gray-600 text-sm">
@@ -80,7 +80,7 @@ const CreativeSection = () => {
                   </div>
                   
                   <div className="flex space-x-4">
-                    <div className="w-12 h-12 rounded-full bg-instagram-orange text-white flex items-center justify-center flex-shrink-0">A</div>
+                    <div className="w-10 h-10 rounded-md border-2 border-instagram-orange text-instagram-orange flex items-center justify-center flex-shrink-0 font-medium">A</div>
                     <div>
                       <h4 className="font-semibold mb-1">Action</h4>
                       <p className="text-gray-600 text-sm">
