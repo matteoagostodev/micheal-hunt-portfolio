@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from '../../components/ui/dialog';
+import { Badge } from '../../components/ui/badge';
 
 interface CaseStudyResult {
   label: string;
@@ -78,107 +79,86 @@ const getIndustryImage = (industry: string) => {
 const getPlatformColor = (platform: string): string => {
   switch(platform) {
     case 'Facebook':
-      return 'bg-gradient-to-br from-blue-600/90 to-blue-800/90 text-white';
+      return 'bg-facebook';
     case 'Instagram':
-      return 'bg-gradient-to-br from-purple-500/90 to-pink-500/90 text-white';
+      return 'bg-gradient-to-br from-instagram-purple to-instagram-pink';
     case 'TikTok':
-      return 'bg-gradient-to-br from-black/90 to-gray-800/90 text-white';
+      return 'bg-black';
     case 'LinkedIn':
-      return 'bg-gradient-to-br from-blue-700/90 to-blue-900/90 text-white';
+      return 'bg-blue-700';
     default:
-      return 'bg-gradient-to-br from-gray-600/90 to-gray-800/90 text-white';
+      return 'bg-gray-700';
   }
 };
 
-// Helper function to get platform badge color
-const getPlatformBadgeColor = (platform: string): string => {
+// Helper function to get platform text color
+const getPlatformTextColor = (platform: string): string => {
   switch(platform) {
     case 'Facebook':
-      return 'bg-facebook text-white';
     case 'Instagram':
-      return 'bg-instagram-pink text-white';
     case 'TikTok':
-      return 'bg-black text-white';
     case 'LinkedIn':
-      return 'bg-blue-700 text-white';
+      return 'text-white';
     default:
-      return 'bg-gray-600 text-white';
-  }
-};
-
-// Helper to get accent color based on platform
-const getPlatformAccentColor = (platform: string): string => {
-  switch(platform) {
-    case 'Facebook':
-      return 'border-facebook';
-    case 'Instagram':
-      return 'border-instagram-pink';
-    case 'TikTok':
-      return 'border-black';
-    case 'LinkedIn':
-      return 'border-blue-700';
-    default:
-      return 'border-gray-600';
+      return 'text-white';
   }
 };
 
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
-  // Select primary platform for styling (alternating if multiple)
+  // Select primary platform for styling (first platform)
   const primaryPlatform = caseStudy.platforms[0];
   const industryImage = getIndustryImage(caseStudy.industry);
   const platformStyle = getPlatformColor(primaryPlatform);
-  const accentColor = getPlatformAccentColor(primaryPlatform);
+  const platformTextColor = getPlatformTextColor(primaryPlatform);
   
-  // Get top 3 results
-  const topResults = caseStudy.results.slice(0, 3);
+  // Get top 2 results for card preview
+  const topResults = caseStudy.results.slice(0, 2);
   
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Card className="border-0 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer h-full overflow-hidden group">
-          <div className="relative">
+        <Card className={`border-0 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer h-full overflow-hidden group ${platformStyle} ${platformTextColor}`}>
+          <div>
             <AspectRatio ratio={16/9}>
               <img 
                 src={industryImage} 
                 alt={caseStudy.industry}
                 className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700"
               />
-              <div className={`absolute inset-0 ${platformStyle} opacity-70`}></div>
             </AspectRatio>
-            
-            <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-              <h3 className="text-xl font-display font-semibold text-white mb-1">{caseStudy.title}</h3>
-              <p className="text-white/90 text-sm">{caseStudy.client}</p>
-              
-              <div className="flex flex-wrap gap-1 mt-2">
-                {caseStudy.platforms.map((platform) => (
-                  <span 
-                    key={platform} 
-                    className={`px-2 py-0.5 rounded text-xs font-medium ${getPlatformBadgeColor(platform)}`}
-                  >
-                    {platform}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
           
-          <CardContent className="p-4">
-            <div className={`grid grid-cols-3 gap-2 border-t-2 ${accentColor} pt-3`}>
+          <CardContent className="p-5">
+            <h3 className="text-xl font-display font-semibold mb-1">{caseStudy.title}</h3>
+            <p className="text-sm opacity-90 mb-3">{caseStudy.client}</p>
+            
+            <div className="flex flex-wrap gap-1 mb-4">
+              {caseStudy.platforms.map((platform) => (
+                <Badge 
+                  key={platform} 
+                  variant="outline"
+                  className="bg-white/20 border-white/30 text-white text-xs"
+                >
+                  {platform}
+                </Badge>
+              ))}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4 mt-4 bg-white/10 p-3 rounded-lg">
               {topResults.map((result, index) => (
                 <div key={index} className="text-center">
                   <p className="text-lg font-bold">{result.value}</p>
                   
                   {result.label === "Return on Ad Spend" ? (
-                    <p className="text-xs text-gray-600">ROAS</p>
+                    <p className="text-xs opacity-80">ROAS</p>
                   ) : result.label === "First Month Revenue" ? (
-                    <p className="text-xs text-gray-600"></p>
+                    <p className="text-xs opacity-80"></p>
                   ) : (
-                    <p className="text-xs text-gray-600 line-clamp-1">{result.label}</p>
+                    <p className="text-xs opacity-80 line-clamp-1">{result.label}</p>
                   )}
                   
                   {result.change && (
-                    <p className={`text-xs font-medium ${result.positive ? "text-green-600" : "text-red-600"}`}>
+                    <p className="text-xs font-medium text-white bg-white/20 rounded-full px-2 py-0.5 inline-block mt-1">
                       {result.positive ? "↑" : "↓"} 
                       {result.label === "Return on Ad Spend" ? "+85%" : 
                        result.label === "First Month Revenue" ? "+212%" : 
@@ -225,18 +205,18 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <div className={`bg-gradient-to-br from-gray-50 to-blue-50 border-l-4 border-facebook p-6 rounded-xl shadow-sm`}>
+          <div className="bg-gray-50 p-6 rounded-xl shadow-sm">
             <h4 className="font-display font-semibold text-lg mb-3 text-gray-800">The Challenge</h4>
             <p className="text-gray-700">{caseStudy.challenge}</p>
           </div>
           
-          <div className={`bg-gradient-to-br from-gray-50 to-blue-50 border-l-4 border-facebook p-6 rounded-xl shadow-sm`}>
+          <div className="bg-gray-50 p-6 rounded-xl shadow-sm">
             <h4 className="font-display font-semibold text-lg mb-3 text-gray-800">The Solution</h4>
             <p className="text-gray-700">{caseStudy.solution}</p>
           </div>
         </div>
         
-        <div className={`p-6 rounded-xl shadow-sm from-gray-50 to-blue-50 border-l-4 border-facebook`}>
+        <div className="p-6 rounded-xl shadow-sm bg-gray-50">
           <h4 className="font-display font-semibold text-xl mb-4 text-center text-gray-800">Results Summary</h4>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -258,7 +238,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         </div>
         
         <div className="flex justify-center mt-6">
-          <p className={`px-4 py-2 rounded-full text-sm font-medium bg-gray-600 text-white`}>
+          <p className="px-4 py-2 rounded-full text-sm font-medium bg-gray-600 text-white">
             Campaign Duration: <span className="font-bold">{caseStudy.duration}</span>
           </p>
         </div>
