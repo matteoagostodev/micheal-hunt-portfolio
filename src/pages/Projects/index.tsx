@@ -22,8 +22,8 @@ const Projects = () => {
             center
           />
           
-          <div className="flex justify-center mb-12">
-            <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex justify-center mb-10">
+            <div className="flex flex-wrap justify-center gap-2">
               <FilterButton 
                 active={filter === 'all'} 
                 onClick={() => setFilter('all')}
@@ -33,26 +33,30 @@ const Projects = () => {
                 active={filter === 'Facebook'} 
                 onClick={() => setFilter('Facebook')}
                 label="Facebook"
+                color="facebook"
               />
               <FilterButton 
                 active={filter === 'Instagram'} 
                 onClick={() => setFilter('Instagram')}
                 label="Instagram"
+                color="instagram"
               />
               <FilterButton 
                 active={filter === 'TikTok'} 
                 onClick={() => setFilter('TikTok')}
                 label="TikTok"
+                color="tiktok"
               />
               <FilterButton 
                 active={filter === 'LinkedIn'} 
                 onClick={() => setFilter('LinkedIn')}
                 label="LinkedIn"
+                color="linkedin"
               />
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {filteredCaseStudies.map((caseStudy) => (
               <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} />
             ))}
@@ -82,17 +86,32 @@ interface FilterButtonProps {
   active: boolean;
   onClick: () => void;
   label: string;
+  color?: 'facebook' | 'instagram' | 'tiktok' | 'linkedin';
 }
 
-const FilterButton: React.FC<FilterButtonProps> = ({ active, onClick, label }) => {
+const FilterButton: React.FC<FilterButtonProps> = ({ active, onClick, label, color }) => {
+  const getButtonStyle = () => {
+    if (active) {
+      switch (color) {
+        case 'facebook':
+          return 'bg-facebook text-white shadow-sm';
+        case 'instagram':
+          return 'bg-instagram-pink text-white shadow-sm';
+        case 'tiktok':
+          return 'bg-black text-white shadow-sm';
+        case 'linkedin':
+          return 'bg-blue-700 text-white shadow-sm';
+        default:
+          return 'bg-facebook text-white shadow-sm';
+      }
+    }
+    return 'bg-gray-100 text-gray-700 hover:bg-gray-200';
+  };
+  
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-        active
-          ? 'bg-facebook text-white shadow-sm'
-          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-      }`}
+      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${getButtonStyle()}`}
     >
       {label}
     </button>

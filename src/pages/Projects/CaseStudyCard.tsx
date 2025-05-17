@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '../../components/ui/card';
 import { AspectRatio } from '../../components/ui/aspect-ratio';
@@ -32,28 +31,6 @@ export interface CaseStudy {
 interface CaseStudyCardProps {
   caseStudy: CaseStudy;
 }
-
-// Helper function to get platform image based on platform name
-const getPlatformImage = (platform: string) => {
-  switch(platform) {
-    case 'Facebook':
-      return "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=200&h=100&auto=format&fit=crop";
-    case 'Instagram':
-      return "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?q=80&w=200&h=100&auto=format&fit=crop";
-    case 'TikTok':
-      return "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=200&h=100&auto=format&fit=crop";
-    case 'LinkedIn':
-      return "https://images.unsplash.com/photo-1611944212129-29977ae1398c?q=80&w=200&h=100&auto=format&fit=crop";
-    case 'Google':
-      return "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?q=80&w=200&h=100&auto=format&fit=crop";
-    case 'Pinterest':
-      return "https://images.unsplash.com/photo-1611162616475-46b635cb6868?q=80&w=200&h=100&auto=format&fit=crop";
-    case 'Snapchat':
-      return "https://images.unsplash.com/photo-1611605698323-b1e99cfd37ea?q=80&w=200&h=100&auto=format&fit=crop";
-    default:
-      return "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=200&h=100&auto=format&fit=crop";
-  }
-};
 
 // Helper function to get industry-specific image
 const getIndustryImage = (industry: string) => {
@@ -97,152 +74,107 @@ const getIndustryImage = (industry: string) => {
   }
 };
 
-// Helper function to get background color based on industry
-const getIndustryColor = (industry: string): string => {
-  switch(industry.toLowerCase()) {
-    case 'fashion':
-    case 'apparel':
-    case 'clothing':
-      return "from-pink-50 to-purple-50 border-l-4 border-instagram-pink";
-    case 'beauty':
-    case 'cosmetics':
-      return "from-purple-50 to-pink-50 border-l-4 border-instagram-purple";
-    case 'food':
-    case 'restaurant':
-    case 'beverage':
-      return "from-amber-50 to-orange-50 border-l-4 border-instagram-orange";
-    case 'tech':
-    case 'technology':
-    case 'software':
-      return "from-blue-50 to-indigo-50 border-l-4 border-facebook";
-    case 'health':
-    case 'fitness':
-    case 'wellness':
-      return "from-green-50 to-teal-50 border-l-4 border-green-500";
-    case 'real estate':
-    case 'property':
-      return "from-blue-50 to-gray-50 border-l-4 border-facebook";
-    case 'education':
-    case 'learning':
-      return "from-indigo-50 to-purple-50 border-l-4 border-indigo-500";
-    case 'finance':
-    case 'banking':
-      return "from-green-50 to-blue-50 border-l-4 border-green-500";
-    case 'travel':
-    case 'tourism':
-      return "from-cyan-50 to-blue-50 border-l-4 border-cyan-500";
-    case 'entertainment':
-    case 'media':
-      return "from-purple-50 to-pink-50 border-l-4 border-purple-500";
+// Helper function to get platform color
+const getPlatformColor = (platform: string): string => {
+  switch(platform) {
+    case 'Facebook':
+      return 'bg-gradient-to-br from-blue-600/90 to-blue-800/90 text-white';
+    case 'Instagram':
+      return 'bg-gradient-to-br from-purple-500/90 to-pink-500/90 text-white';
+    case 'TikTok':
+      return 'bg-gradient-to-br from-black/90 to-gray-800/90 text-white';
+    case 'LinkedIn':
+      return 'bg-gradient-to-br from-blue-700/90 to-blue-900/90 text-white';
     default:
-      return "from-gray-50 to-blue-50 border-l-4 border-facebook";
+      return 'bg-gradient-to-br from-gray-600/90 to-gray-800/90 text-white';
   }
 };
 
-// Helper function to generate a brief results summary
-const generateResultsSummary = (results: CaseStudyResult[]): string => {
-  // Find the most impressive result
-  const significantResults = results.filter(r => r.change && r.positive);
-  
-  if (significantResults.length > 0) {
-    // Sort by highest change percentage (removing % symbol and converting to number)
-    const sortedResults = [...significantResults].sort((a, b) => {
-      const aVal = parseFloat(a.change?.replace('%', '') || '0');
-      const bVal = parseFloat(b.change?.replace('%', '') || '0');
-      return bVal - aVal;
-    });
-    
-    const topResult = sortedResults[0];
-    return `Achieved a ${topResult.change} increase in ${topResult.label.toLowerCase()}, with significant improvements across all key metrics.`;
-  } 
-  
-  // Default summary
-  return `Delivered impressive results across ${results.length} key performance metrics.`;
+// Helper function to get platform badge color
+const getPlatformBadgeColor = (platform: string): string => {
+  switch(platform) {
+    case 'Facebook':
+      return 'bg-facebook text-white';
+    case 'Instagram':
+      return 'bg-instagram-pink text-white';
+    case 'TikTok':
+      return 'bg-black text-white';
+    case 'LinkedIn':
+      return 'bg-blue-700 text-white';
+    default:
+      return 'bg-gray-600 text-white';
+  }
 };
 
-const getKPIBgColor = (index: number): string => {
-  const colors = [
-    'bg-blue-50',    // Light blue
-    'bg-pink-50',    // Light pink
-    'bg-amber-50',   // Light amber
-  ];
-  return colors[index % colors.length];
+// Helper to get accent color based on platform
+const getPlatformAccentColor = (platform: string): string => {
+  switch(platform) {
+    case 'Facebook':
+      return 'border-facebook';
+    case 'Instagram':
+      return 'border-instagram-pink';
+    case 'TikTok':
+      return 'border-black';
+    case 'LinkedIn':
+      return 'border-blue-700';
+    default:
+      return 'border-gray-600';
+  }
 };
 
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
-  // Get the primary platform (first one)
+  // Select primary platform for styling (alternating if multiple)
   const primaryPlatform = caseStudy.platforms[0];
-  const platformImage = getPlatformImage(primaryPlatform);
   const industryImage = getIndustryImage(caseStudy.industry);
-  const cardColor = getIndustryColor(caseStudy.industry);
-  const resultsSummary = generateResultsSummary(caseStudy.results);
+  const platformStyle = getPlatformColor(primaryPlatform);
+  const accentColor = getPlatformAccentColor(primaryPlatform);
   
-  // Filter out Snapchat from platforms display to ensure consistent KPI heights
-  const displayPlatforms = caseStudy.platforms.filter(platform => platform !== 'Snapchat');
-  
-  // Determine platform-specific color
-  const platformColor = 
-    primaryPlatform === 'Facebook' ? 'bg-facebook text-white' :
-    primaryPlatform === 'Instagram' ? 'bg-instagram-pink text-white' :
-    primaryPlatform === 'TikTok' ? 'bg-black text-white' :
-    primaryPlatform === 'LinkedIn' ? 'bg-blue-700 text-white' : 'bg-gray-600 text-white';
+  // Get top 3 results
+  const topResults = caseStudy.results.slice(0, 3);
   
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Card className={`border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer h-full overflow-hidden group bg-gradient-to-br ${cardColor}`}>
-          <AspectRatio ratio={16/9} className="bg-gray-100 relative">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/70 z-10"></div>
-            <img 
-              src={industryImage} 
-              alt={caseStudy.industry}
-              className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700"
-            />
-          </AspectRatio>
-          
-          <CardContent className="p-6 text-center">
-            <div className="mb-6">
-              <h3 className="text-xl font-display font-semibold text-gray-800 mb-2">{caseStudy.title}</h3>
-              <p className="text-gray-600 text-sm mb-3">{caseStudy.client} | {caseStudy.industry}</p>
+        <Card className="border-0 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer h-full overflow-hidden group">
+          <div className="relative">
+            <AspectRatio ratio={16/9}>
+              <img 
+                src={industryImage} 
+                alt={caseStudy.industry}
+                className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700"
+              />
+              <div className={`absolute inset-0 ${platformStyle} opacity-70`}></div>
+            </AspectRatio>
+            
+            <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+              <h3 className="text-xl font-display font-semibold text-white mb-1">{caseStudy.title}</h3>
+              <p className="text-white/90 text-sm">{caseStudy.client}</p>
               
-              <div className="flex flex-wrap justify-center gap-2 mb-4">
-                {displayPlatforms.map((platform) => (
+              <div className="flex flex-wrap gap-1 mt-2">
+                {caseStudy.platforms.map((platform) => (
                   <span 
                     key={platform} 
-                    className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                      platform === 'Facebook' ? 'bg-facebook text-white' :
-                      platform === 'Instagram' ? 'bg-instagram-pink text-white' :
-                      platform === 'TikTok' ? 'bg-black text-white' :
-                      platform === 'LinkedIn' ? 'bg-blue-700 text-white' : 'bg-gray-600 text-white'
-                    }`}
+                    className={`px-2 py-0.5 rounded text-xs font-medium ${getPlatformBadgeColor(platform)}`}
                   >
                     {platform}
                   </span>
                 ))}
               </div>
             </div>
-            
-            <div className="grid grid-cols-3 gap-3">
-              {caseStudy.results.slice(0, 3).map((result, index) => (
-                <div 
-                  key={index} 
-                  className="flex flex-col items-center justify-between h-24 bg-white rounded-lg p-3 shadow-sm"
-                >
-                  <p className="text-lg font-bold text-gray-800">{result.value}</p>
+          </div>
+          
+          <CardContent className="p-4">
+            <div className={`grid grid-cols-3 gap-2 border-t-2 ${accentColor} pt-3`}>
+              {topResults.map((result, index) => (
+                <div key={index} className="text-center">
+                  <p className="text-lg font-bold">{result.value}</p>
                   
-                  {/* Show only "ROAS" for Return on Ad Spend */}
-                  {result.label === "Return on Ad Spend" && (
-                    <p className="text-xs text-gray-600 text-center">ROAS</p>
-                  )}
-                  
-                  {/* Show empty space for First Month Revenue */}
-                  {result.label === "First Month Revenue" && (
-                    <p className="text-xs text-gray-600 text-center"></p>
-                  )}
-                  
-                  {/* Show regular label for all other metrics */}
-                  {result.label !== "Return on Ad Spend" && result.label !== "First Month Revenue" && (
-                    <p className="text-xs text-gray-600 line-clamp-2 text-center">{result.label}</p>
+                  {result.label === "Return on Ad Spend" ? (
+                    <p className="text-xs text-gray-600">ROAS</p>
+                  ) : result.label === "First Month Revenue" ? (
+                    <p className="text-xs text-gray-600"></p>
+                  ) : (
+                    <p className="text-xs text-gray-600 line-clamp-1">{result.label}</p>
                   )}
                   
                   {result.change && (
@@ -293,18 +225,18 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <div className={`bg-gradient-to-br ${cardColor} p-6 rounded-xl shadow-sm`}>
+          <div className={`bg-gradient-to-br from-gray-50 to-blue-50 border-l-4 border-facebook p-6 rounded-xl shadow-sm`}>
             <h4 className="font-display font-semibold text-lg mb-3 text-gray-800">The Challenge</h4>
             <p className="text-gray-700">{caseStudy.challenge}</p>
           </div>
           
-          <div className={`bg-gradient-to-br ${cardColor} p-6 rounded-xl shadow-sm`}>
+          <div className={`bg-gradient-to-br from-gray-50 to-blue-50 border-l-4 border-facebook p-6 rounded-xl shadow-sm`}>
             <h4 className="font-display font-semibold text-lg mb-3 text-gray-800">The Solution</h4>
             <p className="text-gray-700">{caseStudy.solution}</p>
           </div>
         </div>
         
-        <div className={`p-6 rounded-xl shadow-sm ${cardColor}`}>
+        <div className={`p-6 rounded-xl shadow-sm from-gray-50 to-blue-50 border-l-4 border-facebook`}>
           <h4 className="font-display font-semibold text-xl mb-4 text-center text-gray-800">Results Summary</h4>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -326,7 +258,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         </div>
         
         <div className="flex justify-center mt-6">
-          <p className={`px-4 py-2 rounded-full text-sm font-medium ${platformColor}`}>
+          <p className={`px-4 py-2 rounded-full text-sm font-medium bg-gray-600 text-white`}>
             Campaign Duration: <span className="font-bold">{caseStudy.duration}</span>
           </p>
         </div>
