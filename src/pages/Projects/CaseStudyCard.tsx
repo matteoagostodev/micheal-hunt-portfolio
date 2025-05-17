@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent } from '../../components/ui/card';
 import { AspectRatio } from '../../components/ui/aspect-ratio';
@@ -222,7 +223,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
               {caseStudy.results.slice(0, 3).map((result, index) => (
                 <div 
                   key={index} 
-                  className={`flex flex-col items-center justify-between h-24 ${getKPIBgColor(index)} rounded-lg p-3 shadow-sm`}
+                  className="flex flex-col items-center justify-between h-24 bg-white rounded-lg p-3 shadow-sm"
                 >
                   <p className="text-lg font-bold text-gray-800">{result.value}</p>
                   <p className="text-xs text-gray-600 line-clamp-2 text-center">{result.label}</p>
@@ -289,7 +290,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
             {caseStudy.results.map((result, index) => (
               <div 
                 key={index} 
-                className={`p-4 rounded-lg text-center ${getKPIBgColor(index)} shadow-sm h-32 flex flex-col justify-between`}
+                className="p-4 rounded-lg text-center bg-white shadow-sm h-32 flex flex-col justify-between"
               >
                 <p className="text-2xl font-bold text-gray-800">{result.value}</p>
                 <p className="text-sm text-gray-700 line-clamp-2">{result.label}</p>
