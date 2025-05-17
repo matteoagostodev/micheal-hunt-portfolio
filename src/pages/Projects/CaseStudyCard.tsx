@@ -159,6 +159,15 @@ const generateResultsSummary = (results: CaseStudyResult[]): string => {
   return `Delivered impressive results across ${results.length} key performance metrics.`;
 };
 
+const getKPIBgColor = (index: number): string => {
+  const colors = [
+    'bg-blue-50',    // Light blue
+    'bg-pink-50',    // Light pink
+    'bg-amber-50',   // Light amber
+  ];
+  return colors[index % colors.length];
+};
+
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   // Get the primary platform (first one)
   const primaryPlatform = caseStudy.platforms[0];
@@ -209,11 +218,14 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
               </div>
             </div>
             
-            <div className="grid grid-cols-3 gap-3 bg-white/70 p-3 rounded-lg shadow-sm">
+            <div className="grid grid-cols-3 gap-3">
               {caseStudy.results.slice(0, 3).map((result, index) => (
-                <div key={index} className="flex flex-col items-center justify-between h-full">
+                <div 
+                  key={index} 
+                  className={`flex flex-col items-center justify-between h-24 ${getKPIBgColor(index)} rounded-lg p-3 shadow-sm`}
+                >
                   <p className="text-lg font-bold text-gray-800">{result.value}</p>
-                  <p className="text-xs text-gray-600">{result.label}</p>
+                  <p className="text-xs text-gray-600 line-clamp-2 text-center">{result.label}</p>
                   {result.change && (
                     <p className={`text-xs font-medium ${result.positive ? "text-green-600" : "text-red-600"}`}>
                       {result.positive ? "↑" : "↓"} {result.change}
@@ -272,16 +284,15 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         
         <div className={`p-6 rounded-xl shadow-sm ${cardColor}`}>
           <h4 className="font-display font-semibold text-xl mb-4 text-center text-gray-800">Results Summary</h4>
-          <p className="text-gray-700 mb-6 text-center border-b border-gray-200 pb-4">{resultsSummary}</p>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
             {caseStudy.results.map((result, index) => (
               <div 
                 key={index} 
-                className="p-4 rounded-lg text-center bg-white/80 shadow-sm"
+                className={`p-4 rounded-lg text-center ${getKPIBgColor(index)} shadow-sm h-32 flex flex-col justify-between`}
               >
-                <p className="text-2xl font-bold text-gray-800 mb-1">{result.value}</p>
-                <p className="text-sm text-gray-700 mb-1">{result.label}</p>
+                <p className="text-2xl font-bold text-gray-800">{result.value}</p>
+                <p className="text-sm text-gray-700 line-clamp-2">{result.label}</p>
                 {result.change && (
                   <p className={`text-xs font-medium ${result.positive ? "text-green-600" : "text-red-600"}`}>
                     {result.positive ? "↑" : "↓"} {result.change}
