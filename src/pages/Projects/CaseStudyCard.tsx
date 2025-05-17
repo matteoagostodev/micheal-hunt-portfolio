@@ -177,6 +177,9 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   const cardColor = getIndustryColor(caseStudy.industry);
   const resultsSummary = generateResultsSummary(caseStudy.results);
   
+  // Filter out Snapchat from platforms display to ensure consistent KPI heights
+  const displayPlatforms = caseStudy.platforms.filter(platform => platform !== 'Snapchat');
+  
   // Determine platform-specific color
   const platformColor = 
     primaryPlatform === 'Facebook' ? 'bg-facebook text-white' :
@@ -203,7 +206,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
               <p className="text-gray-600 text-sm mb-3">{caseStudy.client} | {caseStudy.industry}</p>
               
               <div className="flex flex-wrap justify-center gap-2 mb-4">
-                {caseStudy.platforms.map((platform) => (
+                {displayPlatforms.map((platform) => (
                   <span 
                     key={platform} 
                     className={`px-2.5 py-1 rounded-full text-xs font-medium ${
