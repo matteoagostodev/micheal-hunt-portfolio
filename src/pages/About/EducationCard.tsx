@@ -61,10 +61,12 @@ const EducationCard: React.FC<EducationCardProps> = ({ education }) => {
           {getIcon()}
         </div>
         
-        <div>
-          <h3 className="text-lg font-display font-semibold">{education.title}</h3>
-          <p className="text-gray-600 text-sm">{education.institution}</p>
-          <p className="text-gray-500 text-sm">{education.year}</p>
+        <div className="flex flex-col">
+          <h3 className="text-lg font-display font-semibold line-clamp-1">{education.title}</h3>
+          <div className="flex flex-col space-y-0.5">
+            <p className="text-gray-600 text-sm">{education.institution}</p>
+            <p className="text-gray-500 text-sm">{education.year}</p>
+          </div>
         </div>
       </div>
     </div>
