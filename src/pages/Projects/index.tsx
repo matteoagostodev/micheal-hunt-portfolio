@@ -52,7 +52,7 @@ const Projects = () => {
             </div>
           </div>
           
-          <div className="space-y-4 stagger-children">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredCaseStudies.map((caseStudy) => (
               <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} />
             ))}
