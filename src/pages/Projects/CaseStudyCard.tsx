@@ -207,10 +207,6 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
                   </span>
                 ))}
               </div>
-              
-              <p className="text-sm text-gray-700 italic border-t border-b border-gray-200 py-3 px-2 mb-4 bg-white/50 rounded">
-                {resultsSummary}
-              </p>
             </div>
             
             <div className="grid grid-cols-3 gap-3 bg-white/70 p-3 rounded-lg shadow-sm">
