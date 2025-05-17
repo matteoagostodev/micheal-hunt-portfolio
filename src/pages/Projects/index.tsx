@@ -14,7 +14,7 @@ const Projects = () => {
   
   return (
     <Layout>
-      <section className="py-24 px-4 lg:px-0">
+      <section className="py-24 px-4 lg:px-0 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto">
           <SectionHeading
             title="Case Studies & Projects"
@@ -52,21 +52,21 @@ const Projects = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredCaseStudies.map((caseStudy) => (
               <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} />
             ))}
           </div>
           
-          <div className="mt-16 p-8 bg-gray-50 rounded-xl">
+          <div className="mt-20 p-8 rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 shadow-sm">
             <div className="text-center max-w-3xl mx-auto">
               <h3 className="text-2xl font-display font-bold mb-4">Want Similar Results?</h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-700 mb-6">
                 These case studies represent just a small sample of the successful campaigns I've managed. Each business is unique, and I tailor my approach to meet your specific goals and challenges.
               </p>
               <a 
                 href="/contact" 
-                className="inline-block px-6 py-3 bg-facebook hover:bg-opacity-90 text-white rounded-md transition-colors"
+                className="inline-block px-6 py-3 bg-facebook hover:bg-opacity-90 text-white rounded-md transition-colors shadow-sm hover:shadow-md"
               >
                 Let's Discuss Your Project
               </a>
@@ -90,7 +90,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({ active, onClick, label }) =
       onClick={onClick}
       className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
         active
-          ? 'bg-facebook text-white'
+          ? 'bg-facebook text-white shadow-sm'
           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
       }`}
     >
