@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line, CartesianGrid, Area, AreaChart, Cell } from 'recharts';
 import SectionHeading from '../../components/SectionHeading';
@@ -206,7 +205,7 @@ const PerformanceSection = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={450}>
                 <BarChart
                   data={audienceData}
                   margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
@@ -214,7 +213,7 @@ const PerformanceSection = () => {
                 >
                   <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
                   <XAxis type="number" domain={[0, 35]} />
-                  <YAxis dataKey="name" type="category" />
+                  <YAxis dataKey="name" type="category" tick={{ fontSize: 14 }} width={120} />
                   <Tooltip
                     formatter={(value: number) => [`${value}%`, 'Audience Share']}
                     contentStyle={{ background: 'white', border: '1px solid #f0f0f0', borderRadius: '8px' }}
@@ -222,7 +221,7 @@ const PerformanceSection = () => {
                   <Bar
                     dataKey="value"
                     radius={[0, 4, 4, 0]}
-                    barSize={20}
+                    barSize={30}
                   >
                     {audienceData.map((entry, index) => (
                       <Cell
