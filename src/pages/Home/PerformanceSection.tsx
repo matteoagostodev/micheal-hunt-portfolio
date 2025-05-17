@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line, CartesianGrid, Area, AreaChart } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line, CartesianGrid, Area, AreaChart, Cell } from 'recharts';
 import SectionHeading from '../../components/SectionHeading';
 import StatsCard from '../../components/StatsCard';
 
