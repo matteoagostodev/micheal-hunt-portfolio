@@ -114,18 +114,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
               alt={caseStudy.industry}
               className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700"
             />
-            <div className="absolute bottom-3 left-0 right-0 flex justify-center z-20">
-              <div className="bg-white/90 backdrop-blur-sm rounded-full px-4 py-1.5 flex items-center space-x-2 shadow-sm">
-                <div className={`w-3 h-3 rounded-full ${
-                  primaryPlatform === 'Facebook' ? 'bg-facebook' :
-                  primaryPlatform === 'Instagram' ? 'bg-instagram-pink' :
-                  primaryPlatform === 'TikTok' ? 'bg-black' : 'bg-gray-600'
-                }`}></div>
-                <div className="text-sm text-gray-800 font-medium">
-                  {primaryPlatform}
-                </div>
-              </div>
-            </div>
+            {/* Removed the white div with platform name */}
           </AspectRatio>
           
           <CardContent className="p-5 text-center">
