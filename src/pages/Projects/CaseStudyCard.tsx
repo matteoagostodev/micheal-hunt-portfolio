@@ -71,7 +71,7 @@ const getIndustryImage = (industry: string) => {
     case 'tech':
     case 'technology':
     case 'software':
-      return "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=800&auto=format&fit=crop";
+      return "https://images.unsplash.com/photo-1488590528505-9ef00e84e7a7?q=80&w=800&auto=format&fit=crop";
     case 'health':
     case 'fitness':
     case 'wellness':
