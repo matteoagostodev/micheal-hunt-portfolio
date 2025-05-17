@@ -9,6 +9,7 @@ import {
   DialogTrigger
 } from '../../components/ui/dialog';
 import { Badge } from '../../components/ui/badge';
+import { BarChart3, TrendingUp, CalendarDays, Percent } from 'lucide-react';
 
 interface CaseStudyResult {
   label: string;
@@ -173,7 +174,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
       </DialogTrigger>
       
       <DialogContent className="sm:max-w-5xl bg-white overflow-y-auto max-h-[90vh]">
-        <div className="relative h-64 sm:h-80 -m-6 mb-6">
+        <div className="relative h-64 sm:h-80 -m-6 mb-8">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10"></div>
           <img 
             src={industryImage} 
@@ -204,43 +205,66 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
           </DialogHeader>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <div className="bg-gray-50 p-6 rounded-xl shadow-sm">
-            <h4 className="font-display font-semibold text-lg mb-3 text-gray-800">The Challenge</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-gray-50 p-5 rounded-xl border border-gray-100 hover:shadow-sm transition-shadow">
+            <h4 className="font-display font-semibold text-lg mb-3 text-gray-800 flex items-center">
+              <span className="mr-2 p-1.5 bg-soft-blue/20 rounded-full">
+                <BarChart3 size={18} className="text-facebook" />
+              </span>
+              The Challenge
+            </h4>
             <p className="text-gray-700">{caseStudy.challenge}</p>
           </div>
           
-          <div className="bg-gray-50 p-6 rounded-xl shadow-sm">
-            <h4 className="font-display font-semibold text-lg mb-3 text-gray-800">The Solution</h4>
+          <div className="bg-gray-50 p-5 rounded-xl border border-gray-100 hover:shadow-sm transition-shadow">
+            <h4 className="font-display font-semibold text-lg mb-3 text-gray-800 flex items-center">
+              <span className="mr-2 p-1.5 bg-soft-green/30 rounded-full">
+                <TrendingUp size={18} className="text-green-600" />
+              </span>
+              The Solution
+            </h4>
             <p className="text-gray-700">{caseStudy.solution}</p>
           </div>
         </div>
         
-        <div className="p-6 rounded-xl shadow-sm bg-gray-50">
-          <h4 className="font-display font-semibold text-xl mb-4 text-center text-gray-800">Results Summary</h4>
+        <div>
+          <h4 className="font-display font-semibold text-xl mb-6 text-center text-gray-800 flex items-center justify-center">
+            <span className="mr-2 p-2 bg-soft-purple/20 rounded-full">
+              <CalendarDays size={18} className="text-purple-600" />
+            </span>
+            Results Summary
+            <span className="px-3 py-1 ml-3 text-sm bg-gray-100 rounded-full text-gray-600">
+              {caseStudy.duration}
+            </span>
+          </h4>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {caseStudy.results.map((result, index) => (
               <div 
                 key={index} 
-                className="p-4 rounded-lg text-center bg-white shadow-sm h-32 flex flex-col justify-between"
+                className={`p-4 rounded-xl border border-gray-100 bg-white hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center justify-center text-center ${
+                  result.positive ? "hover:border-green-100" : "hover:border-red-100"
+                }`}
               >
-                <p className="text-2xl font-bold text-gray-800">{result.value}</p>
-                <p className="text-sm text-gray-700 line-clamp-2">{result.label}</p>
+                <p className={`text-2xl font-bold mb-1 ${result.positive ? "text-gray-800" : "text-gray-700"}`}>
+                  {result.value}
+                </p>
+                
+                <p className="text-sm text-gray-500 mb-2">{result.label}</p>
+                
                 {result.change && (
-                  <p className={`text-xs font-medium ${result.positive ? "text-green-600" : "text-red-600"}`}>
-                    {result.positive ? "↑" : "↓"} {result.change}
-                  </p>
+                  <div className={`text-xs font-medium px-2 py-1 rounded-full ${
+                    result.positive 
+                      ? "bg-green-50 text-green-700 border border-green-200" 
+                      : "bg-red-50 text-red-700 border border-red-200"
+                  } flex items-center`}>
+                    <Percent size={12} className="mr-1" />
+                    {result.positive ? "+" : "-"}{result.change}
+                  </div>
                 )}
               </div>
             ))}
           </div>
-        </div>
-        
-        <div className="flex justify-center mt-6">
-          <p className="px-4 py-2 rounded-full text-sm font-medium bg-gray-600 text-white">
-            Campaign Duration: <span className="font-bold">{caseStudy.duration}</span>
-          </p>
         </div>
       </DialogContent>
     </Dialog>
