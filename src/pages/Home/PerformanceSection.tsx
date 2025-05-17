@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line, CartesianGrid, Area, AreaChart, Cell, PieChart, Pie } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line, CartesianGrid, Area, AreaChart, Cell } from 'recharts';
 import SectionHeading from '../../components/SectionHeading';
 import StatsCard from '../../components/StatsCard';
 
@@ -206,30 +207,31 @@ const PerformanceSection = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
               <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={audienceData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    outerRadius={120}
-                    innerRadius={60}
-                    paddingAngle={2}
-                    dataKey="value"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                  >
-                    {audienceData.map((entry, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={index % 2 === 0 ? '#C13584' : '#1877F2'} 
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip 
+                <BarChart
+                  data={audienceData}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                  layout="vertical"
+                >
+                  <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+                  <XAxis type="number" domain={[0, 35]} />
+                  <YAxis dataKey="name" type="category" />
+                  <Tooltip
                     formatter={(value: number) => [`${value}%`, 'Audience Share']}
                     contentStyle={{ background: 'white', border: '1px solid #f0f0f0', borderRadius: '8px' }}
                   />
-                </PieChart>
+                  <Bar
+                    dataKey="value"
+                    radius={[0, 4, 4, 0]}
+                    barSize={20}
+                  >
+                    {audienceData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={index % 2 === 0 ? '#C13584' : '#1877F2'}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
               </ResponsiveContainer>
             </div>
             
