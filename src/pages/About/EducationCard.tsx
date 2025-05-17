@@ -1,14 +1,5 @@
 
-import React from 'react';
-import { Card, CardContent } from '../../components/ui/card';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle,
-  DialogTrigger 
-} from '../../components/ui/dialog';
-import { CalendarIcon, BookOpen, Award, GraduationCap } from 'lucide-react';
+import React, { useState } from 'react';
 
 export interface Education {
   id: string;
@@ -25,21 +16,37 @@ interface EducationCardProps {
 }
 
 const EducationCard: React.FC<EducationCardProps> = ({ education }) => {
-  // Select icon based on education type
+  const [expanded, setExpanded] = useState(false);
+  
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
+  
   const getIcon = () => {
     switch (education.type) {
       case 'university':
-        return <GraduationCap className="w-5 h-5" />;
+        return (
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+        );
       case 'certification':
-        return <Award className="w-5 h-5" />;
+        return (
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        );
       case 'course':
-        return <BookOpen className="w-5 h-5" />;
+        return (
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        );
       default:
         return null;
     }
   };
   
-  // Get background color based on education type
   const getBackgroundColor = () => {
     switch (education.type) {
       case 'university':
@@ -54,65 +61,62 @@ const EducationCard: React.FC<EducationCardProps> = ({ education }) => {
   };
   
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-          <CardContent className="p-4">
-            <div className="flex gap-4 items-center">
-              <div className={`${getBackgroundColor()} w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0`}>
-                {getIcon()}
-              </div>
-              
-              <div className="flex-grow">
-                <h3 className="font-display font-medium text-lg truncate">{education.title}</h3>
-                <p className="text-gray-600 text-sm">{education.institution}</p>
-                <div className="flex items-center text-gray-500 text-xs mt-1">
-                  <CalendarIcon className="w-3 h-3 mr-1" />
-                  {education.year}
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </DialogTrigger>
-      
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <span className={`${getBackgroundColor()} w-8 h-8 rounded-full flex items-center justify-center text-white flex-shrink-0`}>
-              {getIcon()}
-            </span>
-            {education.title}
-          </DialogTitle>
-        </DialogHeader>
+    <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg">
+      <div 
+        className="p-6 cursor-pointer flex gap-4"
+        onClick={toggleExpanded}
+      >
+        <div className={`${getBackgroundColor()} w-12 h-12 rounded-full flex items-center justify-center text-white flex-shrink-0`}>
+          {getIcon()}
+        </div>
         
-        <div className="mt-2">
-          <div className="mb-4">
-            <p className="font-medium text-gray-700">{education.institution}</p>
-            <p className="text-gray-500 text-sm flex items-center">
-              <CalendarIcon className="w-4 h-4 mr-1" />
-              {education.year}
-            </p>
-          </div>
-          
-          <p className="text-gray-600 mb-4">{education.description}</p>
-          
-          <div>
-            <h4 className="font-medium mb-2 text-sm">Skills & Knowledge:</h4>
-            <div className="flex flex-wrap gap-2">
-              {education.skills.map((skill, index) => (
-                <span 
-                  key={index} 
-                  className="px-3 py-1 bg-gray-100 rounded-full text-gray-600 text-xs"
-                >
-                  {skill}
-                </span>
-              ))}
+        <div>
+          <div className="flex justify-between items-start">
+            <div>
+              <h3 className="text-lg font-display font-semibold">{education.title}</h3>
+              <p className="text-gray-600">{education.institution}</p>
+              <p className="text-gray-500 text-sm">{education.year}</p>
+            </div>
+            
+            <div>
+              <button 
+                className={`w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center transition-transform duration-300 ${
+                  expanded ? "transform rotate-180" : ""
+                }`}
+              >
+                <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+      
+      {expanded && (
+        <div className="px-6 pb-6 pt-0 animate-fade-in">
+          <div className="ml-16">
+            <div className="mb-4">
+              <p className="text-gray-600">{education.description}</p>
+            </div>
+            
+            <div>
+              <h4 className="font-medium mb-2">Skills & Knowledge:</h4>
+              <div className="flex flex-wrap gap-2">
+                {education.skills.map((skill, index) => (
+                  <span 
+                    key={index} 
+                    className="px-3 py-1 bg-gray-100 rounded-full text-gray-600 text-sm"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
