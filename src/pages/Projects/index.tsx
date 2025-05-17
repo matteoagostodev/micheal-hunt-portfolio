@@ -52,7 +52,7 @@ const Projects = () => {
             </div>
           </div>
           
-          <div className="space-y-6 stagger-children">
+          <div className="space-y-4 stagger-children">
             {filteredCaseStudies.map((caseStudy) => (
               <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} />
             ))}

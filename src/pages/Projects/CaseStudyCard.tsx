@@ -1,5 +1,8 @@
 
 import React, { useState } from 'react';
+import { Card, CardContent, CardHeader } from '../../components/ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../components/ui/collapsible';
+import { ChevronDown } from 'lucide-react';
 
 interface CaseStudyResult {
   label: string;
@@ -30,78 +33,86 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
+
+  // Get the top 3 results to display in the preview
+  const topResults = caseStudy.results.slice(0, 3);
   
   return (
-    <div className={`border border-gray-100 rounded-xl shadow-md overflow-hidden transition-all duration-300 ${
-      expanded ? "bg-white" : "bg-white hover:shadow-lg"
-    }`}>
-      <div 
-        className={`p-6 cursor-pointer ${expanded ? "border-b border-gray-100" : ""}`} 
-        onClick={toggleExpand}
-      >
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <h3 className="text-xl font-display font-semibold text-facebook mb-1">{caseStudy.title}</h3>
-            <p className="text-gray-600">{caseStudy.client} | {caseStudy.industry}</p>
-          </div>
-          <div>
-            <button 
-              className={`w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center transition-transform duration-300 ${
-                expanded ? "transform rotate-180" : ""
-              }`}
-            >
-              <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-        </div>
-        
-        <div className="flex flex-wrap gap-2 mb-3">
-          {caseStudy.platforms.map((platform) => (
-            <span 
-              key={platform} 
-              className="px-3 py-1 bg-gray-100 rounded-full text-gray-600 text-sm"
-            >
-              {platform}
-            </span>
-          ))}
-        </div>
-        
-        <p className="text-sm text-gray-500">Campaign Duration: {caseStudy.duration}</p>
-      </div>
-      
-      {expanded && (
-        <div className="p-6 pt-4 animate-fade-in">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <div>
-              <h4 className="font-display font-semibold text-lg mb-2">The Challenge</h4>
-              <p className="text-gray-600">{caseStudy.challenge}</p>
+    <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+      <Collapsible open={expanded} onOpenChange={setExpanded}>
+        <CollapsibleTrigger className="w-full text-left">
+          <CardHeader className="pb-0">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-xl font-display font-semibold text-facebook mb-1">{caseStudy.title}</h3>
+                <p className="text-gray-600 text-sm">{caseStudy.client} | {caseStudy.industry}</p>
+              </div>
+              <div className="flex items-center justify-center w-8 h-8 rounded-full border border-gray-200">
+                <ChevronDown className={`w-4 h-4 text-gray-600 transition-transform duration-300 ${expanded ? 'transform rotate-180' : ''}`} />
+              </div>
             </div>
             
-            <div>
-              <h4 className="font-display font-semibold text-lg mb-2">The Solution</h4>
-              <p className="text-gray-600">{caseStudy.solution}</p>
+            <div className="flex flex-wrap gap-2 mt-2 mb-3">
+              {caseStudy.platforms.map((platform) => (
+                <span 
+                  key={platform} 
+                  className="px-2 py-0.5 bg-gray-100 rounded-full text-gray-600 text-xs"
+                >
+                  {platform}
+                </span>
+              ))}
             </div>
-          </div>
-          
-          <h4 className="font-display font-semibold text-lg mb-4">Key Results</h4>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {caseStudy.results.map((result, index) => (
-              <div key={index} className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500 mb-1">{result.label}</p>
-                <p className="text-xl font-bold text-facebook">{result.value}</p>
-                {result.change && (
-                  <p className={`text-sm font-medium ${result.positive ? "text-green-500" : "text-red-500"}`}>
-                    {result.positive ? "↑" : "↓"} {result.change}
-                  </p>
-                )}
+            
+            <div className="flex flex-wrap gap-4 mt-4">
+              {topResults.map((result, index) => (
+                <div key={index} className="flex flex-col">
+                  <p className="text-lg font-bold text-facebook">{result.value}</p>
+                  <p className="text-xs text-gray-500">{result.label}</p>
+                  {result.change && (
+                    <p className={`text-xs font-medium ${result.positive ? "text-green-500" : "text-red-500"}`}>
+                      {result.positive ? "↑" : "↓"} {result.change}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            <p className="text-xs text-gray-500 mt-2">Campaign Duration: {caseStudy.duration}</p>
+          </CardHeader>
+        </CollapsibleTrigger>
+        
+        <CollapsibleContent>
+          <CardContent className="pt-4 animate-fade-in">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <div>
+                <h4 className="font-display font-semibold text-lg mb-2">The Challenge</h4>
+                <p className="text-gray-600 text-sm">{caseStudy.challenge}</p>
               </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
+              
+              <div>
+                <h4 className="font-display font-semibold text-lg mb-2">The Solution</h4>
+                <p className="text-gray-600 text-sm">{caseStudy.solution}</p>
+              </div>
+            </div>
+            
+            <h4 className="font-display font-semibold text-lg mb-4">Key Results</h4>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+              {caseStudy.results.map((result, index) => (
+                <div key={index} className="p-3 bg-gray-50 rounded-lg">
+                  <p className="text-xs text-gray-500 mb-1">{result.label}</p>
+                  <p className="text-lg font-bold text-facebook">{result.value}</p>
+                  {result.change && (
+                    <p className={`text-xs font-medium ${result.positive ? "text-green-500" : "text-red-500"}`}>
+                      {result.positive ? "↑" : "↓"} {result.change}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </CollapsibleContent>
+      </Collapsible>
+    </Card>
   );
 };
 
