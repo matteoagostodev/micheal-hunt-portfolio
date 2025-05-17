@@ -229,16 +229,28 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
                   className="flex flex-col items-center justify-between h-24 bg-white rounded-lg p-3 shadow-sm"
                 >
                   <p className="text-lg font-bold text-gray-800">{result.value}</p>
-                  {result.label === "Return on Ad Spend" ? (
+                  
+                  {/* Show only "ROAS" for Return on Ad Spend */}
+                  {result.label === "Return on Ad Spend" && (
                     <p className="text-xs text-gray-600 text-center">ROAS</p>
-                  ) : (
-                    <p className="text-xs text-gray-600 line-clamp-2 text-center">
-                      {result.label === "First Month Revenue" ? "" : result.label}
-                    </p>
                   )}
+                  
+                  {/* Show empty space for First Month Revenue */}
+                  {result.label === "First Month Revenue" && (
+                    <p className="text-xs text-gray-600 text-center"></p>
+                  )}
+                  
+                  {/* Show regular label for all other metrics */}
+                  {result.label !== "Return on Ad Spend" && result.label !== "First Month Revenue" && (
+                    <p className="text-xs text-gray-600 line-clamp-2 text-center">{result.label}</p>
+                  )}
+                  
                   {result.change && (
                     <p className={`text-xs font-medium ${result.positive ? "text-green-600" : "text-red-600"}`}>
-                      {result.positive ? "↑" : "↓"} {result.label === "First Month Revenue" ? "+212%" : result.change}
+                      {result.positive ? "↑" : "↓"} 
+                      {result.label === "Return on Ad Spend" ? "+85%" : 
+                       result.label === "First Month Revenue" ? "+212%" : 
+                       result.change}
                     </p>
                   )}
                 </div>
