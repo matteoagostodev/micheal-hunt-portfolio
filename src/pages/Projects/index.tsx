@@ -22,7 +22,7 @@ const Projects = () => {
             center
           />
           
-          <div className="flex justify-center mb-10">
+          <div className="flex justify-center mb-12">
             <div className="flex flex-wrap justify-center gap-3">
               <FilterButton 
                 active={filter === 'all'} 
@@ -52,7 +52,7 @@ const Projects = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {filteredCaseStudies.map((caseStudy) => (
               <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} />
             ))}
