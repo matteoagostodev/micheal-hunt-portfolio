@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Layout from '../../components/Layout';
 import SectionHeading from '../../components/SectionHeading';
@@ -69,7 +68,7 @@ const About = () => {
               center
             />
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto mt-12 stagger-children">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto mt-12">
               {education.map((item) => (
                 <EducationCard key={item.id} education={item} />
               ))}
