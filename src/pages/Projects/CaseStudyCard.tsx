@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Card, CardContent } from '../../components/ui/card';
-import { AspectRatio } from '../../components/ui/aspect-ratio';
 import { 
   Dialog,
   DialogContent,
@@ -11,6 +10,7 @@ import {
 } from '../../components/ui/dialog';
 import { Badge } from '../../components/ui/badge';
 import { BarChart3, TrendingUp, CalendarDays, Percent, Facebook, Instagram } from 'lucide-react';
+import { Separator } from '../../components/ui/separator';
 
 interface CaseStudyResult {
   label: string;
@@ -64,26 +64,6 @@ const getPlatformTextColor = (platform: string): string => {
   }
 };
 
-// Helper function to get platform-based search bar image
-const getPlatformSearchImage = (platforms: string[]): string => {
-  // Check if platforms include Facebook first
-  if (platforms.includes('Facebook')) {
-    return "/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpeg";
-  }
-  // If not Facebook but includes Instagram, use Instagram
-  else if (platforms.includes('Instagram')) {
-    return "/lovable-uploads/photo-1486312338219-ce68d2c6f44d.jpeg";
-  }
-  // TikTok
-  else if (platforms.includes('TikTok')) {
-    return "/lovable-uploads/photo-1581091226825-a6a2a5aee158.jpeg";
-  }
-  // LinkedIn or other platforms
-  else {
-    return "/lovable-uploads/photo-1531297484001-80022131f5a1.jpeg";
-  }
-};
-
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   // Select primary platform for styling (first platform)
   const primaryPlatform = caseStudy.platforms[0];
@@ -97,44 +77,46 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
     <Dialog>
       <DialogTrigger asChild>
         <Card className={`border-0 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer h-full overflow-hidden group ${platformStyle} ${platformTextColor}`}>
-          <div>
-            <AspectRatio ratio={16/9}>
-              <div className="relative w-full h-full">
-                <img 
-                  src={getPlatformSearchImage(caseStudy.platforms)}
-                  alt={`${primaryPlatform} Marketing`}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700 brightness-75"
-                />
+          <CardContent className="p-5 pt-6">
+            {/* Platform icon displayed at top */}
+            <div className="flex justify-between items-start mb-4">
+              <div className="flex items-center">
                 {primaryPlatform === 'Facebook' && (
-                  <div className="absolute top-4 left-4">
-                    <Facebook size={28} className="text-white drop-shadow-md" />
-                  </div>
+                  <Facebook size={24} className="text-white/90 mr-2" />
                 )}
                 {primaryPlatform === 'Instagram' && (
-                  <div className="absolute top-4 left-4">
-                    <Instagram size={28} className="text-white drop-shadow-md" />
-                  </div>
+                  <Instagram size={24} className="text-white/90 mr-2" />
                 )}
+                <Badge 
+                  variant="outline"
+                  className="bg-white/20 border-white/30 text-white text-xs"
+                >
+                  {primaryPlatform}
+                </Badge>
               </div>
-            </AspectRatio>
-          </div>
-          
-          <CardContent className="p-5">
-            <h3 className="text-xl font-display font-semibold mb-1">{caseStudy.title}</h3>
-            <p className="text-sm opacity-90 mb-3">{caseStudy.client}</p>
+              <span className="text-xs opacity-70">{caseStudy.industry}</span>
+            </div>
             
+            {/* Title and client */}
+            <h3 className="text-xl font-display font-semibold mb-1">{caseStudy.title}</h3>
+            <p className="text-sm opacity-90 mb-4">{caseStudy.client}</p>
+            
+            <Separator className="bg-white/20 my-4" />
+            
+            {/* Platforms */}
             <div className="flex flex-wrap gap-1 mb-4">
-              {caseStudy.platforms.map((platform) => (
+              {caseStudy.platforms.slice(1).map((platform) => (
                 <Badge 
                   key={platform} 
                   variant="outline"
-                  className="bg-white/20 border-white/30 text-white text-xs"
+                  className="bg-white/10 border-white/20 text-white text-xs"
                 >
                   {platform}
                 </Badge>
               ))}
             </div>
             
+            {/* Results */}
             <div className="grid grid-cols-2 gap-4 mt-4 bg-white/10 p-3 rounded-lg">
               {topResults.map((result, index) => (
                 <div key={index} className="text-center">
@@ -164,13 +146,8 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
       </DialogTrigger>
       
       <DialogContent className="sm:max-w-5xl bg-white overflow-y-auto max-h-[90vh]">
-        <div className="relative h-64 sm:h-80 -m-6 mb-8">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10"></div>
-          <img 
-            src={getPlatformSearchImage(caseStudy.platforms)}
-            alt={`${primaryPlatform} Marketing for ${caseStudy.industry}`}
-            className="w-full h-full object-cover"
-          />
+        <div className={`relative h-24 -m-6 mb-8 ${platformStyle}`}>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 z-10"></div>
           <DialogHeader className="absolute bottom-0 left-0 right-0 p-6 text-white z-20">
             <DialogTitle className="text-3xl font-display font-semibold">
               {caseStudy.title}
