@@ -80,7 +80,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
           <div>
             <AspectRatio ratio={16/9}>
               <img 
-                src="/lovable-uploads/2a04776e-1166-41bf-a0aa-47663f275674.png" 
+                src="/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png" 
                 alt={caseStudy.industry}
                 className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700"
               />
