@@ -64,6 +64,25 @@ const getPlatformTextColor = (platform: string): string => {
   }
 };
 
+// Helper function to get industry-specific image
+const getIndustryImage = (industry: string, id: string): string => {
+  switch(industry) {
+    case 'Health & Fitness':
+    case 'Health & Fitness App':
+      return "/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png";
+    case 'Home Goods':
+      return "/lovable-uploads/1772b22c-89e6-4e74-a372-5f2eb1075ecf.png";
+    case 'SaaS / Technology':
+      return "/lovable-uploads/ea89763f-b730-4160-8809-6230b6ad630d.png";
+    case 'Fitness / Local Service':
+      return "/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png";
+    case 'Fashion / Apparel':
+      return "/lovable-uploads/2a04776e-1166-41bf-a0aa-47663f275674.png";
+    default:
+      return "/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png";
+  }
+};
+
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   // Select primary platform for styling (first platform)
   const primaryPlatform = caseStudy.platforms[0];
@@ -73,10 +92,6 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   // Get top 2 results for card preview
   const topResults = caseStudy.results.slice(0, 2);
   
-  // Determine if this is the top-right card to apply the specific image
-  // Used to conditionally render the coding image for the top right card
-  const isTopRightCard = caseStudy.id === "2"; // Assuming card with id "2" is in the top right
-  
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -84,7 +99,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
           <div>
             <AspectRatio ratio={16/9}>
               <img 
-                src={isTopRightCard ? "/lovable-uploads/1772b22c-89e6-4e74-a372-5f2eb1075ecf.png" : "/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png"}
+                src={getIndustryImage(caseStudy.industry, caseStudy.id)}
                 alt={caseStudy.industry}
                 className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700"
               />
@@ -139,7 +154,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         <div className="relative h-64 sm:h-80 -m-6 mb-8">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10"></div>
           <img 
-            src="/lovable-uploads/2a04776e-1166-41bf-a0aa-47663f275674.png" 
+            src={getIndustryImage(caseStudy.industry, caseStudy.id)}
             alt={caseStudy.industry}
             className="w-full h-full object-cover"
           />
