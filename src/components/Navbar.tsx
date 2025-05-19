@@ -39,7 +39,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 lg:px-8 flex justify-between items-center">
         <Link to="/" className="flex items-center">
           <span className="font-display font-bold text-2xl">
-            <span className="text-facebook">Alex</span>
+            <span className="text-facebook">Micheal</span>
             <span className="social-gradient"> Hunt</span>
           </span>
         </Link>

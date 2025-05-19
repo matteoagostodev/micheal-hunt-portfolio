@@ -13,7 +13,7 @@ const About = () => {
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto mb-16">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">About <span className="text-facebook">Alex</span> <span className="social-gradient">Hunt</span></h1>
+              <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">About <span className="text-facebook">Micheal</span> <span className="social-gradient">Hunt</span></h1>
               
               <div className="w-24 h-1 bg-gradient-to-r from-facebook to-instagram-purple mx-auto mb-6"></div>
               

@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center">
               <span className="font-display font-bold text-xl">
-                <span className="text-facebook">Alex</span>
+                <span className="text-facebook">Micheal</span>
                 <span className="social-gradient"> Hunt</span>
               </span>
             </Link>
@@ -43,7 +43,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-gray-200 mt-12 pt-6 text-center text-gray-500">
-          <p>© {new Date().getFullYear()} Alex Hunt. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Micheal Hunt. All rights reserved.</p>
         </div>
       </div>
     </footer>
