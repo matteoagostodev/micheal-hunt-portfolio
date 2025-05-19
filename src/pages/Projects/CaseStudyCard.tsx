@@ -6,7 +6,8 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
+  DialogDescription
 } from '../../components/ui/dialog';
 import { Badge } from '../../components/ui/badge';
 import { BarChart3, TrendingUp, CalendarDays, Percent, Facebook, Instagram } from 'lucide-react';
@@ -146,13 +147,15 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
       </DialogTrigger>
       
       <DialogContent className="sm:max-w-5xl bg-white overflow-y-auto max-h-[90vh]">
-        <div className={`relative h-24 -m-6 mb-8 ${platformStyle}`}>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 z-10"></div>
-          <DialogHeader className="absolute bottom-0 left-0 right-0 p-6 text-white z-20">
+        <div className={`relative pt-12 pb-16 px-6 mb-6 ${platformStyle}`}>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
+          <DialogHeader className="relative z-20 text-white">
             <DialogTitle className="text-3xl font-display font-semibold">
               {caseStudy.title}
             </DialogTitle>
-            <p className="text-white/85">{caseStudy.client} | {caseStudy.industry}</p>
+            <DialogDescription className="text-white/85 mt-2">
+              {caseStudy.client} | {caseStudy.industry}
+            </DialogDescription>
             
             <div className="flex flex-wrap gap-2 mt-4">
               {caseStudy.platforms.map((platform) => (
