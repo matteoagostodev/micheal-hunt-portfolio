@@ -10,7 +10,7 @@ import {
   DialogTrigger
 } from '../../components/ui/dialog';
 import { Badge } from '../../components/ui/badge';
-import { BarChart3, TrendingUp, CalendarDays, Percent } from 'lucide-react';
+import { BarChart3, TrendingUp, CalendarDays, Percent, Facebook, Instagram } from 'lucide-react';
 
 interface CaseStudyResult {
   label: string;
@@ -64,22 +64,23 @@ const getPlatformTextColor = (platform: string): string => {
   }
 };
 
-// Helper function to get industry-specific image
-const getIndustryImage = (industry: string, id: string): string => {
-  switch(industry) {
-    case 'Health & Fitness':
-    case 'Health & Fitness App':
-      return "/lovable-uploads/4fddc678-b838-4031-95e0-8f99b6b8a1b9.png";
-    case 'Home Goods':
-      return "/lovable-uploads/1772b22c-89e6-4e74-a372-5f2eb1075ecf.png";
-    case 'SaaS / Technology':
-      return "/lovable-uploads/ea89763f-b730-4160-8809-6230b6ad630d.png";
-    case 'Fitness / Local Service':
-      return "/lovable-uploads/4fddc678-b838-4031-95e0-8f99b6b8a1b9.png";
-    case 'Fashion / Apparel':
-      return "/lovable-uploads/2a04776e-1166-41bf-a0aa-47663f275674.png";
-    default:
-      return "/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png";
+// Helper function to get platform-based search bar image
+const getPlatformSearchImage = (platforms: string[]): string => {
+  // Check if platforms include Facebook first
+  if (platforms.includes('Facebook')) {
+    return "/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpeg";
+  }
+  // If not Facebook but includes Instagram, use Instagram
+  else if (platforms.includes('Instagram')) {
+    return "/lovable-uploads/photo-1486312338219-ce68d2c6f44d.jpeg";
+  }
+  // TikTok
+  else if (platforms.includes('TikTok')) {
+    return "/lovable-uploads/photo-1581091226825-a6a2a5aee158.jpeg";
+  }
+  // LinkedIn or other platforms
+  else {
+    return "/lovable-uploads/photo-1531297484001-80022131f5a1.jpeg";
   }
 };
 
@@ -98,11 +99,23 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         <Card className={`border-0 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer h-full overflow-hidden group ${platformStyle} ${platformTextColor}`}>
           <div>
             <AspectRatio ratio={16/9}>
-              <img 
-                src={getIndustryImage(caseStudy.industry, caseStudy.id)}
-                alt={caseStudy.industry}
-                className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700"
-              />
+              <div className="relative w-full h-full">
+                <img 
+                  src={getPlatformSearchImage(caseStudy.platforms)}
+                  alt={`${primaryPlatform} Marketing`}
+                  className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700 brightness-75"
+                />
+                {primaryPlatform === 'Facebook' && (
+                  <div className="absolute top-4 left-4">
+                    <Facebook size={28} className="text-white drop-shadow-md" />
+                  </div>
+                )}
+                {primaryPlatform === 'Instagram' && (
+                  <div className="absolute top-4 left-4">
+                    <Instagram size={28} className="text-white drop-shadow-md" />
+                  </div>
+                )}
+              </div>
             </AspectRatio>
           </div>
           
@@ -154,8 +167,8 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         <div className="relative h-64 sm:h-80 -m-6 mb-8">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10"></div>
           <img 
-            src={getIndustryImage(caseStudy.industry, caseStudy.id)}
-            alt={caseStudy.industry}
+            src={getPlatformSearchImage(caseStudy.platforms)}
+            alt={`${primaryPlatform} Marketing for ${caseStudy.industry}`}
             className="w-full h-full object-cover"
           />
           <DialogHeader className="absolute bottom-0 left-0 right-0 p-6 text-white z-20">
