@@ -69,13 +69,13 @@ const getIndustryImage = (industry: string, id: string): string => {
   switch(industry) {
     case 'Health & Fitness':
     case 'Health & Fitness App':
-      return "/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png";
+      return "/lovable-uploads/df218cd7-c7f9-4a5d-bf1e-548155c6a81c.png";
     case 'Home Goods':
       return "/lovable-uploads/1772b22c-89e6-4e74-a372-5f2eb1075ecf.png";
     case 'SaaS / Technology':
       return "/lovable-uploads/ea89763f-b730-4160-8809-6230b6ad630d.png";
     case 'Fitness / Local Service':
-      return "/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png";
+      return "/lovable-uploads/df218cd7-c7f9-4a5d-bf1e-548155c6a81c.png";
     case 'Fashion / Apparel':
       return "/lovable-uploads/2a04776e-1166-41bf-a0aa-47663f275674.png";
     default:
