@@ -73,6 +73,10 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   // Get top 2 results for card preview
   const topResults = caseStudy.results.slice(0, 2);
   
+  // Determine if this is the top-right card to apply the specific image
+  // Used to conditionally render the coding image for the top right card
+  const isTopRightCard = caseStudy.id === "2"; // Assuming card with id "2" is in the top right
+  
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -80,7 +84,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
           <div>
             <AspectRatio ratio={16/9}>
               <img 
-                src="/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png" 
+                src={isTopRightCard ? "/lovable-uploads/ea89763f-b730-4160-8809-6230b6ad630d.png" : "/lovable-uploads/20574ffc-1e1d-4bb6-a6f6-ad6b92e695bf.png"}
                 alt={caseStudy.industry}
                 className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700"
               />
