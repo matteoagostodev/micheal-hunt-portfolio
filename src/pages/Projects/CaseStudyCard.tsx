@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent } from '../../components/ui/card';
 import { AspectRatio } from '../../components/ui/aspect-ratio';
@@ -34,48 +35,6 @@ interface CaseStudyCardProps {
   caseStudy: CaseStudy;
 }
 
-// Helper function to get industry-specific image
-const getIndustryImage = (industry: string) => {
-  switch(industry.toLowerCase()) {
-    case 'fashion':
-    case 'apparel':
-    case 'clothing':
-      return "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=800&auto=format&fit=crop";
-    case 'beauty':
-    case 'cosmetics':
-      return "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop";
-    case 'food':
-    case 'restaurant':
-    case 'beverage':
-      return "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?q=80&w=800&auto=format&fit=crop";
-    case 'tech':
-    case 'technology':
-    case 'software':
-      return "https://images.unsplash.com/photo-1488590528505-9ef00e84e7a7?q=80&w=800&auto=format&fit=crop";
-    case 'health':
-    case 'fitness':
-    case 'wellness':
-      return "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop";
-    case 'real estate':
-    case 'property':
-      return "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop";
-    case 'education':
-    case 'learning':
-      return "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop";
-    case 'finance':
-    case 'banking':
-      return "https://images.unsplash.com/photo-1621264448270-9ef00e84e7a7?q=80&w=800&auto=format&fit=crop";
-    case 'travel':
-    case 'tourism':
-      return "https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?q=80&w=800&auto=format&fit=crop";
-    case 'entertainment':
-    case 'media':
-      return "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=800&auto=format&fit=crop";
-    default:
-      return "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=800&auto=format&fit=crop";
-  }
-};
-
 // Helper function to get platform color
 const getPlatformColor = (platform: string): string => {
   switch(platform) {
@@ -108,7 +67,6 @@ const getPlatformTextColor = (platform: string): string => {
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
   // Select primary platform for styling (first platform)
   const primaryPlatform = caseStudy.platforms[0];
-  const industryImage = getIndustryImage(caseStudy.industry);
   const platformStyle = getPlatformColor(primaryPlatform);
   const platformTextColor = getPlatformTextColor(primaryPlatform);
   
@@ -122,7 +80,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
           <div>
             <AspectRatio ratio={16/9}>
               <img 
-                src={industryImage} 
+                src="/lovable-uploads/2a04776e-1166-41bf-a0aa-47663f275674.png" 
                 alt={caseStudy.industry}
                 className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700"
               />
@@ -177,7 +135,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
         <div className="relative h-64 sm:h-80 -m-6 mb-8">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10"></div>
           <img 
-            src={industryImage} 
+            src="/lovable-uploads/2a04776e-1166-41bf-a0aa-47663f275674.png" 
             alt={caseStudy.industry}
             className="w-full h-full object-cover"
           />
