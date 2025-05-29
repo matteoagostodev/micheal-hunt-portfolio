@@ -78,7 +78,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
     <Dialog>
       <DialogTrigger asChild>
         <Card className={`border-0 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer h-full overflow-hidden group ${platformStyle} ${platformTextColor}`}>
-          <CardContent className="p-5 pt-6">
+          <CardContent className="p-5 pt-6 flex flex-col h-full">
             {/* Platform icon displayed at top */}
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center">
@@ -117,28 +117,32 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ caseStudy }) => {
               ))}
             </div>
             
-            {/* Results */}
-            <div className="grid grid-cols-2 gap-4 mt-4 bg-white/10 p-3 rounded-lg">
+            {/* Results - Fixed height container */}
+            <div className="grid grid-cols-2 gap-4 mt-auto bg-white/10 p-3 rounded-lg">
               {topResults.map((result, index) => (
-                <div key={index} className="text-center">
-                  <p className="text-lg font-bold">{result.value}</p>
+                <div key={index} className="text-center h-20 flex flex-col justify-between">
+                  <div className="flex-1 flex items-center justify-center">
+                    <p className="text-lg font-bold">{result.value}</p>
+                  </div>
                   
-                  {result.label === "Return on Ad Spend" ? (
-                    <p className="text-xs opacity-80">ROAS</p>
-                  ) : result.label === "First Month Revenue" ? (
-                    <p className="text-xs opacity-80"></p>
-                  ) : (
-                    <p className="text-xs opacity-80 line-clamp-1">{result.label}</p>
-                  )}
-                  
-                  {result.change && (
-                    <p className="text-xs font-medium text-white bg-white/20 rounded-full px-2 py-0.5 inline-block mt-1">
-                      {result.positive ? "↑" : "↓"} 
-                      {result.label === "Return on Ad Spend" ? "+85%" : 
-                       result.label === "First Month Revenue" ? "+212%" : 
-                       result.change}
-                    </p>
-                  )}
+                  <div className="space-y-1">
+                    {result.label === "Return on Ad Spend" ? (
+                      <p className="text-xs opacity-80">ROAS</p>
+                    ) : result.label === "First Month Revenue" ? (
+                      <p className="text-xs opacity-80"></p>
+                    ) : (
+                      <p className="text-xs opacity-80 line-clamp-1">{result.label}</p>
+                    )}
+                    
+                    {result.change && (
+                      <p className="text-xs font-medium text-white bg-white/20 rounded-full px-2 py-0.5 inline-block">
+                        {result.positive ? "↑" : "↓"} 
+                        {result.label === "Return on Ad Spend" ? "+85%" : 
+                         result.label === "First Month Revenue" ? "+212%" : 
+                         result.change}
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
